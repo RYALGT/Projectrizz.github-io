@@ -36,17 +36,22 @@
             width: 100%;
             text-align: center;
         }
-        h2 {
-            color: #333;
-        }
-        input[type="password"] {
-            padding: 15px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            width: 100%;
+        .input-container {
             margin-bottom: 20px;
+        }
+        .input-container input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            width: calc(100% - 20px);
             box-sizing: border-box;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
         }
         button {
             padding: 15px 30px;
@@ -81,14 +86,20 @@
 </head>
 <body>
     <div class="container">
-        <h2>Enter Password</h2>
-        <form id="passwordForm">
+        <div class="input-container">
             <input type="password" id="password" placeholder="Enter password">
+        </div>
+        <div class="button-container">
             <button type="button" onclick="checkPassword()">Submit</button>
-        </form>
+        </div>
         <div id="loggedInButtons" style="display: none;">
-            <button onclick="button1Clicked()">PlayFab Spam</button>
-            <button onclick="button2Clicked()">Ryal Client</button>
+            <div class="input-container">
+                <input type="text" id="titleId" placeholder="Enter PlayFab Title ID">
+            </div>
+            <div class="button-container">
+                <button onclick="button1Clicked()">PlayFab Spam</button>
+                <button onclick="button2Clicked()">Ryal Client</button>
+            </div>
         </div>
         <iframe id="replitFrame" src="" style="display: none;"></iframe>
     </div>
@@ -97,7 +108,7 @@
         function checkPassword() {
             var password = document.getElementById("password").value;
             if (password === "fny") {
-                document.getElementById("passwordForm").style.display = "none";
+                document.getElementById("password").style.display = "none";
                 document.getElementById("loggedInButtons").style.display = "block";
             } else {
                 alert("Incorrect password. Please try again.");
@@ -105,67 +116,23 @@
         }
 
         function button1Clicked() {
-            // Your PlayFab spam code
-            // You can adapt this code to be compatible with the browser environment
-            // and replace console.log with alerts or other visual feedback
-            alert("You clicked PlayFab Spam. Spamming in console.");
-            const COLORS = [
-                "Red",
-                "Orange",
-                "Yellow",
-                "Green",
-                "Cyan",
-                "Blue",
-                "Violet"
-            ];
-            function randomColor() {
-                return COLORS[Math.floor(Math.random() * COLORS.length)];
+            var titleId = document.getElementById("titleId").value;
+            if (titleId.trim() === "") {
+                alert("Please enter PlayFab Title ID.");
+                return;
             }
-            function spam() {
-                console.log(`Spamming in ${randomColor()}!`);
-                setTimeout(spam, 1000);
-            }
-            spam();
+            // Your code for button 1 functionality
+            alert("PlayFab Spam button clicked. Title ID: " + titleId);
         }
 
         function button2Clicked() {
-            // Your Ryal Client code
-            // You can adapt this code to be compatible with the browser environment
-            // and replace console.log with alerts or other visual feedback
-            alert("You clicked Ryal Client. Please input your choices in the console.");
-            function ban_player() {
-                // Function to ban a player
-                // Replace this with your ban player function
-                console.log("Function to ban player goes here.");
+            var titleId = document.getElementById("titleId").value;
+            if (titleId.trim() === "") {
+                alert("Please enter PlayFab Title ID.");
+                return;
             }
-            function grant_cosmetic() {
-                // Function to grant a cosmetic item
-                // Replace this with your grant cosmetic function
-                console.log("Function to grant cosmetic goes here.");
-            }
-            function ask_user() {
-                // Function to ask user for action
-                // Replace this with your UI to ask user for action
-                console.log("Welcome to RyalClient. What do you want to do?");
-                console.log("1. Ban a player");
-                console.log("2. Grant a cosmetic item");
-                console.log("3. PlayFab spam");
-                console.log("4. Send and receive messages");
-                console.log("Enter 1, 2, 3, or 4");
-                let choice = prompt("Please enter your choice (1, 2, 3, or 4): ");
-                if (choice === '1') {
-                    ban_player();
-                } else if (choice === '2') {
-                    grant_cosmetic();
-                } else if (choice === '3') {
-                    console.log("You chose PlayFab spam. Please run the spam function.");
-                } else if (choice === '4') {
-                    console.log("You chose send and receive messages. Please implement this functionality.");
-                } else {
-                    console.log("Invalid choice. Please enter 1, 2, 3, or 4.");
-                }
-            }
-            ask_user();
+            // Your code for button 2 functionality
+            alert("Ryal Client button clicked. Title ID: " + titleId);
         }
     </script>
 </body>
