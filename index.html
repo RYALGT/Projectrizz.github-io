@@ -55,13 +55,21 @@
 <body>
 
 <div class="container">
-  <div class="section active" id="admin-section">
+  <div class="section" id="login-section">
     <div class="section-title">Ryal Client Admin</div>
     <div class="input-group">
       <label class="input-label" for="password">Enter Password:</label>
       <input class="input-field" type="password" id="password" name="password">
     </div>
-    <button class="button" onclick="showFiles()">Login</button>
+    <button class="button" onclick="login()">Login</button>
+  </div>
+
+  <div class="section" id="actions-section">
+    <div class="section-title">Choose Action</div>
+    <button class="button" onclick="showSection('ban-section')">Ban Player</button>
+    <button class="button" onclick="showSection('cosmetic-section')">Give Cosmetics</button>
+    <button class="button" onclick="showSection('playfab-section')">PlayFab Spam</button>
+    <button class="button" onclick="showSection('files-section')">Access Files</button>
   </div>
 
   <div class="section" id="files-section">
@@ -70,17 +78,8 @@
   </div>
 
   <div class="section" id="playfab-section">
-    <div class="section-title">PlayFab Title ID</div>
-    <form>
-      <div class="input-group">
-        <label class="input-label" for="name">Your Name:</label>
-        <input class="input-field" type="text" id="name" name="name">
-      </div>
-      <div class="input-group">
-        <label class="input-label" for="action">Choose Action:</label>
-        <input class="input-field" type="text" id="action" name="action">
-      </div>
-    </form>
+    <div class="section-title">PlayFab Spam</div>
+    <p>Spamming actions in PlayFab.</p>
   </div>
 
   <div class="section" id="ban-section">
@@ -103,7 +102,7 @@
   </div>
 
   <div class="section" id="cosmetic-section">
-    <div class="section-title">Grant Cosmetic</div>
+    <div class="section-title">Give Cosmetics</div>
     <form>
       <div class="input-group">
         <label class="input-label" for="cosmetic-player-id">Player's PlayFab ID:</label>
@@ -113,16 +112,32 @@
         <label class="input-label" for="cosmetic-id">Cosmetic Item ID:</label>
         <input class="input-field" type="text" id="cosmetic-id" name="cosmetic-id">
       </div>
-      <button class="button" type="submit">Grant Cosmetic</button>
+      <button class="button" type="submit">Give Cosmetics</button>
     </form>
   </div>
 </div>
 
 <script>
-  function showFiles() {
-    document.getElementById("admin-section").style.display = "none";
-    document.getElementById("files-section").classList.add("active");
-    document.getElementById("playfab-section").classList.add("active");
+  function login() {
+    var password = document.getElementById("password").value;
+    // Perform authentication here
+    if (password === "your_password") {
+      document.getElementById("login-section").style.display = "none";
+      document.getElementById("actions-section").classList.add("active");
+    } else {
+      alert("Incorrect password. Please try again.");
+    }
+  }
+
+  function showSection(sectionId) {
+    var sections = document.querySelectorAll('.section');
+    sections.forEach(function(section) {
+      if (section.id === sectionId) {
+        section.classList.add("active");
+      } else {
+        section.classList.remove("active");
+      }
+    });
   }
 </script>
 
