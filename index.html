@@ -3,94 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Access Control</title>
+    <title>Ryal Client Admin</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: #fdd835;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
-            max-width: 800px;
-            width: 100%;
-            text-align: center;
-        }
-        h2 {
-            color: #333;
-        }
-        input[type="password"] {
-            padding: 15px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            width: 100%;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-        }
-        button {
-            padding: 15px 30px;
-            font-size: 16px;
-            background-color: #fbc02d;
-            color: #333;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #ffeb3b;
-        }
-        iframe {
-            width: 100%;
-            height: 400px;
-            border: none;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-        pre {
-            font-family: monospace;
-            margin-top: 20px;
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <pre>
-  __________               .__   
-\______   \___.__._____  |  |  
- |       _<   |  |\__  \ |  |  
- |    |   \\___  | / __ \|  |__
- |____|_  // ____|(____  /____/
-        \/ \/          \/      
-        </pre>
-        <h2>Enter Password</h2>
-        <form id="passwordForm">
-            <input type="password" id="password" placeholder="Enter password">
-            <button type="button" onclick="checkPassword()">Submit</button>
-        </form>
-        <iframe id="replitFrame" src="" style="display: none;"></iframe>
-    </div>
 
-    <script>
-        function checkPassword() {
-            var password = document.getElementById("password").value;
-            if (password === "fny") {
-                document.getElementById("passwordForm").style.display = "none";
-                document.getElementById("replitFrame").src = "https://replit.com/join/azvdmhmikd-staticx";
-                document.getElementById("replitFrame").style.display = "block";
-            } else {
-                alert("Incorrect password. Please try again.");
-            }
+<div class="container">
+    <h2>Ryal Client Admin</h2>
+    <div id="login-form" class="form-group">
+        <label for="password">Enter Password</label>
+        <input type="password" id="password" required>
+        <button onclick="checkPassword()">Login</button>
+    </div>
+    
+    <div id="admin-form" class="form-group hidden">
+        <div class="form-group">
+            <label for="titleId">PlayFab Title ID</label>
+            <input type="text" id="titleId" required>
+        </div>
+        <div class="form-group">
+            <label for="adminName">Your Name</label>
+            <input type="text" id="adminName" required>
+        </div>
+        <div class="form-group">
+            <label for="action">Choose Action</label>
+            <select id="action" onchange="toggleFields()">
+                <option value="ban">Ban Player</option>
+                <option value="grant">Grant Cosmetic</option>
+            </select>
+        </div>
+        <div id="ban-fields">
+            <div class="form-group">
+                <label for="banPlayerId">Player's PlayFab ID</label>
+                <input type="text" id="banPlayerId" required>
+            </div>
+            <div class="form-group">
+                <label for="inGameName">Player's In-Game Name</label>
+                <input type="text" id="inGameName" required>
+            </div>
+            <div class="form-group">
+                <label for="banDuration">Ban Duration (hours)</label>
+                <input type="number" id="banDuration" required>
+            </div>
+            <button onclick="banPlayer()">Ban Player</button>
+        </div>
+        <div id="grant-fields" class="hidden">
+            <div class="form-group">
+                <label for="grantPlayerId">Player's PlayFab ID</label>
+                <input type="text" id="grantPlayerId" required>
+            </div>
+            <div class="form-group">
+                <label for="cosmeticItemId">Cosmetic Item ID</label>
+                <input type="text" id="cosmeticItemId" required>
+            </div>
+            <button onclick="grantCosmetic()">Grant Cosmetic</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkPassword() {
+        const password = document.getElementById('password').value;
+        if (password === 'fny') {
+            document.getElementById('login-form').style.display = 'none'; // hide login form
+            document.getElementById('admin-form').classList.remove('hidden'); // show admin form
+            
+            // Send webhook notification
+            sendWebhookNotification();
+        } else {
+            alert('Incorrect password!');
         }
-    </script>
+        return false; // Prevent form submission
+    }
+
+    function toggleFields() {
+        const action = document.getElementById('action').value;
+        if (action === 'ban') {
+            document.getElementById('ban-fields').classList.remove('hidden');
+            document.getElementById('grant-fields').classList.add('hidden');
+        } else {
+            document.getElementById('ban-fields').classList.add('hidden');
+            document.getElementById('grant-fields').classList.remove('hidden');
+        }
+    }
+
+    // Function to send webhook notification
+    function sendWebhookNotification() {
+        const webhookUrl = "https://discord.com/api/webhooks/1246509407936974909/sKZzat7_I3Nhugs_cD68XqFNqIpoBjoZ9ZG3n1mkPRRkOHn6rcUwr5xNMuCQw8114_S5";
+        const message = {
+            "embeds": [{
+                "title": "New Visit",
+                "description": "A user has entered the website.",
+                "color": 65280 // Green color
+            }]
+        };
+
+        fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(message)
+        })
+        .then(response => {
+            if (!response.ok) {
+                console.error('Failed to send webhook notification:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error sending webhook notification:', error);
+        });
+    }
+
+    // Function to ban a player
+    async function banPlayer() {
+        // Implement your ban logic here
+    }
+
+    // Function to grant cosmetic to a player
+    async function grantCosmetic() {
+        // Implement your grant cosmetic logic here
+    }
+
+    // Function to send ban notification
+    async function sendBanNotification(banningPerson, inGameName, duration) {
+        // Implement your send ban notification logic here
+    }
+
+    // Function to send cosmetic notification
+    async function sendCosmeticNotification(grantingPerson, playerId, cosmeticItemId) {
+        // Implement your send cosmetic notification logic here
+    }
+</script>
+
 </body>
 </html>
