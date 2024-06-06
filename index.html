@@ -20,7 +20,11 @@
     background-color: #f9f9f9;
   }
   .section {
+    display: none;
     margin-bottom: 20px;
+  }
+  .section.active {
+    display: block;
   }
   .section-title {
     font-size: 18px;
@@ -51,18 +55,21 @@
 <body>
 
 <div class="container">
-  <div class="section">
+  <div class="section active" id="admin-section">
     <div class="section-title">Ryal Client Admin</div>
-    <form>
-      <div class="input-group">
-        <label class="input-label" for="password">Enter Password:</label>
-        <input class="input-field" type="password" id="password" name="password">
-      </div>
-      <button class="button" type="submit">Login</button>
-    </form>
+    <div class="input-group">
+      <label class="input-label" for="password">Enter Password:</label>
+      <input class="input-field" type="password" id="password" name="password">
+    </div>
+    <button class="button" onclick="showFiles()">Login</button>
   </div>
 
-  <div class="section">
+  <div class="section" id="files-section">
+    <div class="section-title">Files</div>
+    <p>Upload or manage your files here.</p>
+  </div>
+
+  <div class="section" id="playfab-section">
     <div class="section-title">PlayFab Title ID</div>
     <form>
       <div class="input-group">
@@ -76,7 +83,7 @@
     </form>
   </div>
 
-  <div class="section">
+  <div class="section" id="ban-section">
     <div class="section-title">Ban Player</div>
     <form>
       <div class="input-group">
@@ -95,7 +102,7 @@
     </form>
   </div>
 
-  <div class="section">
+  <div class="section" id="cosmetic-section">
     <div class="section-title">Grant Cosmetic</div>
     <form>
       <div class="input-group">
@@ -110,6 +117,14 @@
     </form>
   </div>
 </div>
+
+<script>
+  function showFiles() {
+    document.getElementById("admin-section").style.display = "none";
+    document.getElementById("files-section").classList.add("active");
+    document.getElementById("playfab-section").classList.add("active");
+  }
+</script>
 
 </body>
 </html>
