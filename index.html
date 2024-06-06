@@ -1,109 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ryal Client Admin</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Layout</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  .section {
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .input-label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .input-field {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+  }
+  .button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+</style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Ryal Client Admin</h2>
-    <div id="login-form" class="form-group">
-        <label for="password">Enter Password</label>
-        <input type="password" id="password" required>
-        <button onclick="checkPassword()">Login</button>
-    </div>
-    
-    <div id="admin-form" class="hidden">
-        <div class="form-group">
-            <label for="titleId">PlayFab Title ID</label>
-            <input type="text" id="titleId" required>
-        </div>
-        <div class="form-group">
-            <label for="adminName">Your Name</label>
-            <input type="text" id="adminName" required>
-        </div>
-        <div class="form-group">
-            <label for="action">Choose Action</label>
-            <select id="action" onchange="toggleFields()">
-                <option value="ban">Ban Player</option>
-                <option value="grant">Grant Cosmetic</option>
-            </select>
-        </div>
-        <div id="ban-fields">
-            <div class="form-group">
-                <label for="banPlayerId">Player's PlayFab ID</label>
-                <input type="text" id="banPlayerId" required>
-            </div>
-            <div class="form-group">
-                <label for="inGameName">Player's In-Game Name</label>
-                <input type="text" id="inGameName" required>
-            </div>
-            <div class="form-group">
-                <label for="banDuration">Ban Duration (hours)</label>
-                <input type="number" id="banDuration" required>
-            </div>
-            <button onclick="banPlayer()">Ban Player</button>
-        </div>
-        <div id="grant-fields" class="hidden">
-            <div class="form-group">
-                <label for="grantPlayerId">Player's PlayFab ID</label>
-                <input type="text" id="grantPlayerId" required>
-            </div>
-            <div class="form-group">
-                <label for="cosmeticItemId">Cosmetic Item ID</label>
-                <input type="text" id="cosmeticItemId" required>
-            </div>
-            <button onclick="grantCosmetic()">Grant Cosmetic</button>
-        </div>
-    </div>
+  <div class="section">
+    <div class="section-title">Ryal Client Admin</div>
+    <form>
+      <div class="input-group">
+        <label class="input-label" for="password">Enter Password:</label>
+        <input class="input-field" type="password" id="password" name="password">
+      </div>
+      <button class="button" type="submit">Login</button>
+    </form>
+  </div>
+
+  <div class="section">
+    <div class="section-title">PlayFab Title ID</div>
+    <form>
+      <div class="input-group">
+        <label class="input-label" for="name">Your Name:</label>
+        <input class="input-field" type="text" id="name" name="name">
+      </div>
+      <div class="input-group">
+        <label class="input-label" for="action">Choose Action:</label>
+        <input class="input-field" type="text" id="action" name="action">
+      </div>
+    </form>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Ban Player</div>
+    <form>
+      <div class="input-group">
+        <label class="input-label" for="player-id">Player's PlayFab ID:</label>
+        <input class="input-field" type="text" id="player-id" name="player-id">
+      </div>
+      <div class="input-group">
+        <label class="input-label" for="player-name">Player's In-Game Name:</label>
+        <input class="input-field" type="text" id="player-name" name="player-name">
+      </div>
+      <div class="input-group">
+        <label class="input-label" for="ban-duration">Ban Duration (hours):</label>
+        <input class="input-field" type="number" id="ban-duration" name="ban-duration">
+      </div>
+      <button class="button" type="submit">Ban Player</button>
+    </form>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Grant Cosmetic</div>
+    <form>
+      <div class="input-group">
+        <label class="input-label" for="cosmetic-player-id">Player's PlayFab ID:</label>
+        <input class="input-field" type="text" id="cosmetic-player-id" name="cosmetic-player-id">
+      </div>
+      <div class="input-group">
+        <label class="input-label" for="cosmetic-id">Cosmetic Item ID:</label>
+        <input class="input-field" type="text" id="cosmetic-id" name="cosmetic-id">
+      </div>
+      <button class="button" type="submit">Grant Cosmetic</button>
+    </form>
+  </div>
 </div>
-
-<script>
-    function checkPassword() {
-        const password = document.getElementById('password').value;
-        if (password === 'fny') {
-            document.getElementById('login-form').classList.add('hidden');
-            document.getElementById('admin-form').classList.remove('hidden');
-        } else {
-            alert('Incorrect password!');
-        }
-        return false; // Prevent form submission
-    }
-
-    function toggleFields() {
-        const action = document.getElementById('action').value;
-        if (action === 'ban') {
-            document.getElementById('ban-fields').classList.remove('hidden');
-            document.getElementById('grant-fields').classList.add('hidden');
-        } else {
-            document.getElementById('ban-fields').classList.add('hidden');
-            document.getElementById('grant-fields').classList.remove('hidden');
-        }
-    }
-
-    // Function to ban a player
-    async function banPlayer() {
-        // Implement your ban logic here
-    }
-
-    // Function to grant cosmetic to a player
-    async function grantCosmetic() {
-        // Implement your grant cosmetic logic here
-    }
-
-    // Function to send ban notification
-    async function sendBanNotification(banningPerson, inGameName, duration) {
-        // Implement your send ban notification logic here
-    }
-
-    // Function to send cosmetic notification
-    async function sendCosmeticNotification(grantingPerson, playerId, cosmeticItemId) {
-        // Implement your send cosmetic notification logic here
-    }
-</script>
 
 </body>
 </html>
