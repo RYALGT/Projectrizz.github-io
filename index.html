@@ -9,7 +9,8 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #000;
+            color: #fff;
         }
 
         header {
@@ -17,6 +18,7 @@
             color: #fff;
             padding: 1rem 0;
             text-align: center;
+            font-weight: bold;
         }
 
         nav {
@@ -35,16 +37,26 @@
             display: inline;
         }
 
-        nav ul li a img {
-            width: 50px;
-            height: 50px;
+        .button-link {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .discord-button {
+            background-color: #7289da;
+            color: #fff;
+        }
+
+        .download-button {
+            background-color: #1f8b4c;
+            color: #fff;
         }
 
         main {
             padding: 2rem;
-        }
-
-        #games {
             text-align: center;
         }
 
@@ -67,14 +79,10 @@
             padding: 1rem 0;
             background-color: #333;
             color: #fff;
+            font-weight: bold;
             position: fixed;
             width: 100%;
             bottom: 0;
-        }
-
-        .button-link img {
-            width: 50px;
-            height: 50px;
         }
     </style>
 </head>
@@ -84,13 +92,13 @@
         <nav>
             <ul>
                 <li>
-                    <a href="https://discord.gg/mGdnYUWE7f" target="_blank" class="button-link">
-                        <img src="images/discord-icon.png" alt="Discord">
+                    <a href="https://discord.gg/mGdnYUWE7f" target="_blank" class="button-link discord-button">
+                        Discord
                     </a>
                 </li>
                 <li>
-                    <a href="https://www.meta.com/s/4zwEfHEoX" target="_blank" class="button-link">
-                        <img src="images/download-icon.png" alt="Download">
+                    <a href="https://www.meta.com/s/4zwEfHEoX" target="_blank" class="button-link download-button">
+                        AppLab Download
                     </a>
                 </li>
             </ul>
