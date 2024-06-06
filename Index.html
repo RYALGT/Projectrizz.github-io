@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funny Runners Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"], input[type="password"], input[type="number"], select, button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Funny Runners Admin</h2>
+    <div id="login-form" class="form-group">
+        <label for="password">Enter Password</label>
+        <input type="password" id="password" required>
+        <button onclick="checkPassword()">Login</button>
+    </div>
+    
+    <div id="admin-form" class="hidden">
+        <div class="form-group">
+            <label for="titleId">PlayFab Title ID</label>
+            <input type="text" id="titleId" required>
+        </div>
+        <div class="form-group">
+            <label for="adminName">Your Name</label>
+            <input type="text" id="adminName" required>
+        </div>
+        <div class="form-group">
+            <label for="action">Choose Action</label>
+            <select id="action" onchange="toggleFields()">
+                <option value="ban">Ban Player</option>
+                <option value="grant">Grant Cosmetic</option>
+            </select>
+        </div>
+        <div id="ban-fields">
+            <div class="form-group">
+                <label for="banPlayerId">Player's PlayFab ID</label>
+                <input type="text" id="banPlayerId" required>
+            </div>
+            <div class="form-group">
+                <label for="inGameName">Player's In-Game Name</label>
+                <input type="text" id="inGameName" required>
+            </div>
+            <div class="form-group">
+                <label for="banDuration">Ban Duration (hours)</label>
+                <input type="number" id="banDuration" required>
+            </div>
+            <button onclick="banPlayer()">Ban Player</button>
+        </div>
+        <div id="grant-fields" class="hidden">
+            <div class="form-group">
+                <label for="grantPlayerId">Player's PlayFab ID</label>
+                <input type="text" id="grantPlayerId" required>
+            </div>
+            <div class="form-group">
+                <label for="cosmeticItemId">Cosmetic Item ID</label>
+                <input type="text" id="cosmeticItemId" required>
+            </div>
+            <button onclick="grantCosmetic()">Grant Cosmetic</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkPassword() {
+        const password = document.getElementById('password').value;
+        if (password === 'your_password_here') {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('admin-form').classList.remove('hidden');
+        } else {
+            alert('Incorrect password!');
+        }
+    }
+
+    function toggleFields() {
+        const action = document.getElementById('action').value;
+        if (action === 'ban') {
+            document.getElementById('ban-fields').classList.remove('hidden');
+            document.getElementById('grant-fields').classList.add('hidden');
+        } else {
+            document.getElementById('ban-fields').classList.add('hidden');
+            document.getElementById('grant-fields').classList.remove('hidden');
+        }
+    }
+
+    async function banPlayer() {
+        const titleId = document.getElementById('titleId').value.trim();
+        const banningPerson = document.getElementById('adminName').value.trim();
+        const playerId = document.getElementById('banPlayerId').value.trim();
+        const inGameName = document.getElementById('inGameName').value.trim();
+        const duration = document.getElementById('banDuration').value.trim();
+        
+        const base_url = `https://${titleId}.playfabapi.com/Admin/BanUsers`;
+        const payload = {
+            "Bans": [{
+                "PlayFabId": playerId,
+                "Reason": "Banned via RyalClient. Be good to daddy next time.",
+                "DurationInHours": parseInt(duration)
+            }]
+        };
+        const headers = {
+            "Content-Type": "application/json",
+            "X-SecretKey": "5AOHIXHADJ97WQNCO81FMZ5Z1RX3RMTPT6T7GBBAMW8EOH91BW"
+        };
+
+        try {
+            const response = await fetch(base_url, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(payload)
+            });
+            if (response.status === 200) {
+                alert(`Player ${playerId} banned successfully`);
+                sendBanNotification(banningPerson, inGameName, duration);
+            } else {
+                const errorData = await response.json();
+                alert(`Failed to ban player. Status code: ${response.status}. Response: ${errorData.errorMessage}`);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    async function grantCosmetic() {
+        const titleId = document.getElementById('titleId').value.trim();
+        const grantingPerson = document.getElementById('adminName').value.trim();
+        const playerId = document.getElementById('grantPlayerId').value.trim();
+        const cosmeticItemId = document.getElementById('cosmeticItemId').value.trim();
+
+        const base_url = `https://${titleId}.playfabapi.com/Admin/GrantItemsToUsers`;
+        const payload = {
+            "CatalogVersion": "your_catalog_version_here",
+            "PlayFabId": playerId,
+            "ItemIds": [cosmeticItemId],
+            "Annotation": "Cosmetic item granted via RyalClient."
+        };
+        const headers = {
+            "Content-Type": "application/json",
+            "X-SecretKey": "5AOHIXHADJ97WQNCO81FMZ5Z1RX3RMTPT6T7GBBAMW8EOH91BW"
+        };
+
+        try {
+            const response = await fetch(base_url, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(payload)
+            });
+            if (response.status === 200) {
+                alert(`Cosmetic item ${cosmeticItemId} granted successfully to player ${playerId}`);
+                sendCosmeticNotification(grantingPerson, playerId, cosmeticItemId);
+            } else {
+                const errorData = await response.json();
+                alert(`Failed to grant cosmetic item. Status code: ${response.status}. Response: ${errorData.errorMessage}`);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    async function sendBanNotification(banningPerson, inGameName, duration) {
+        const webhook_url = "https://discord.com/api/webhooks/1246509407936974909/sKZzat7_I3Nhugs_cD68XqFNqIpoBjoZ9ZG3n1mkPRRkOHn6rcUwr5xNMuCQw8114_S5";
+        const embed = {
+            "title": "Player Banned",
+            "description": `**${banningPerson}** has banned **${inGameName}** for **${duration}** hours. @here`,
+            "color": 16776960
+        };
+        const payload = {
+            "embeds": [embed]
+        };
+
+        try {
+            const response = await fetch(webhook_url, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+            if (response.status === 204) {
+                console.log("Notification sent to
