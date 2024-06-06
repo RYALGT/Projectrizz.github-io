@@ -14,6 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
         .container {
             background-color: #fdd835;
@@ -45,6 +46,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-right: 10px;
         }
         button:hover {
             background-color: #ffeb3b;
@@ -59,6 +61,18 @@
         pre {
             font-family: monospace;
             margin-top: 20px;
+            animation: rainbow 1.5s infinite;
+            background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        @keyframes rainbow {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
         }
     </style>
 </head>
@@ -77,8 +91,12 @@
             <input type="password" id="password" placeholder="Enter password">
             <button type="button" onclick="checkPassword()">Submit</button>
             <button type="button" onclick="forgotPassword()">Forgot Password?</button>
-            <button type="button" onclick="createAccount()">Create Account</button>
         </form>
+        <div id="loggedInButtons" style="display: none;">
+            <button onclick="button1Clicked()">Button 1</button>
+            <button onclick="button2Clicked()">Button 2</button>
+            <button onclick="button3Clicked()">Button 3</button>
+        </div>
         <iframe id="replitFrame" src="" style="display: none;"></iframe>
     </div>
 
@@ -87,8 +105,7 @@
             var password = document.getElementById("password").value;
             if (password === "fny") {
                 document.getElementById("passwordForm").style.display = "none";
-                document.getElementById("replitFrame").src = "https://replit.com/join/azvdmhmikd-staticx";
-                document.getElementById("replitFrame").style.display = "block";
+                document.getElementById("loggedInButtons").style.display = "block";
             } else {
                 alert("Incorrect password. Please try again.");
             }
@@ -98,8 +115,16 @@
             alert("Contact support for password recovery.");
         }
 
-        function createAccount() {
-            alert("Account creation is not available in this demo.");
+        function button1Clicked() {
+            alert("Button 1 clicked!");
+        }
+
+        function button2Clicked() {
+            alert("Button 2 clicked!");
+        }
+
+        function button3Clicked() {
+            alert("Button 3 clicked!");
         }
     </script>
 </body>
