@@ -7,7 +7,6 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
             margin: 0;
             padding: 0;
             display: flex;
@@ -15,9 +14,21 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            animation: rainbow 1.5s infinite;
+            background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        @keyframes rainbow {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
         }
         .container {
-            background-color: #fdd835;
+            background-color: rgba(255, 255, 255, 0.5);
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
@@ -66,36 +77,18 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        @keyframes rainbow {
-            0% {
-                background-position: 0% 50%;
-            }
-            100% {
-                background-position: 100% 50%;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <pre>
-                            ╔═╗╔╗ ╔╗╔══╗ ║║
-                            ║╔╝║║ ║║╚ ╗║ ║║ 
-                            ║║ ║╚═╝║║╚╝╚╗║╚╗
-                            ╚╝ ╚═╗╔╝╚═══╝╚═╝
-                                ╔╝║ 
-                               ╚══╝
-        </pre>
         <h2>Enter Password</h2>
         <form id="passwordForm">
             <input type="password" id="password" placeholder="Enter password">
             <button type="button" onclick="checkPassword()">Submit</button>
-            <button type="button" onclick="forgotPassword()">Forgot Password?</button>
         </form>
         <div id="loggedInButtons" style="display: none;">
-            <button onclick="button1Clicked()">Button 1</button>
-            <button onclick="button2Clicked()">Button 2</button>
-            <button onclick="button3Clicked()">Button 3</button>
+            <button onclick="button1Clicked()">PlayFab Spam</button>
+            <button onclick="button2Clicked()">Ryal Client</button>
         </div>
         <iframe id="replitFrame" src="" style="display: none;"></iframe>
     </div>
@@ -111,20 +104,68 @@
             }
         }
 
-        function forgotPassword() {
-            alert("Contact support for password recovery.");
-        }
-
         function button1Clicked() {
-            alert("Button 1 clicked!");
+            // Your PlayFab spam code
+            // You can adapt this code to be compatible with the browser environment
+            // and replace console.log with alerts or other visual feedback
+            alert("You clicked PlayFab Spam. Spamming in console.");
+            const COLORS = [
+                "Red",
+                "Orange",
+                "Yellow",
+                "Green",
+                "Cyan",
+                "Blue",
+                "Violet"
+            ];
+            function randomColor() {
+                return COLORS[Math.floor(Math.random() * COLORS.length)];
+            }
+            function spam() {
+                console.log(`Spamming in ${randomColor()}!`);
+                setTimeout(spam, 1000);
+            }
+            spam();
         }
 
         function button2Clicked() {
-            alert("Button 2 clicked!");
-        }
-
-        function button3Clicked() {
-            alert("Button 3 clicked!");
+            // Your Ryal Client code
+            // You can adapt this code to be compatible with the browser environment
+            // and replace console.log with alerts or other visual feedback
+            alert("You clicked Ryal Client. Please input your choices in the console.");
+            function ban_player() {
+                // Function to ban a player
+                // Replace this with your ban player function
+                console.log("Function to ban player goes here.");
+            }
+            function grant_cosmetic() {
+                // Function to grant a cosmetic item
+                // Replace this with your grant cosmetic function
+                console.log("Function to grant cosmetic goes here.");
+            }
+            function ask_user() {
+                // Function to ask user for action
+                // Replace this with your UI to ask user for action
+                console.log("Welcome to RyalClient. What do you want to do?");
+                console.log("1. Ban a player");
+                console.log("2. Grant a cosmetic item");
+                console.log("3. PlayFab spam");
+                console.log("4. Send and receive messages");
+                console.log("Enter 1, 2, 3, or 4");
+                let choice = prompt("Please enter your choice (1, 2, 3, or 4): ");
+                if (choice === '1') {
+                    ban_player();
+                } else if (choice === '2') {
+                    grant_cosmetic();
+                } else if (choice === '3') {
+                    console.log("You chose PlayFab spam. Please run the spam function.");
+                } else if (choice === '4') {
+                    console.log("You chose send and receive messages. Please implement this functionality.");
+                } else {
+                    console.log("Invalid choice. Please enter 1, 2, 3, or 4.");
+                }
+            }
+            ask_user();
         }
     </script>
 </body>
