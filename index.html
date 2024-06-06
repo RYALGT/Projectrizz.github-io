@@ -3,96 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Rizz</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            text-align: center;
-            background-color: #ffff99; /* Yellow background */
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
-            max-width: 800px;
-            width: 100%;
-        }
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .button {
-            padding: 15px 30px;
-            font-size: 16px;
-            background-color: #fbc02d;
-            color: #333;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-right: 10px;
-        }
-        .button:hover {
-            background-color: #ffeb3b;
-        }
-        .download-button {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .discord-button {
-            background-color: #7289DA;
-            color: white;
-        }
-    </style>
+    <title>Gorilla Tag Fan Games</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to Project Rizz</h1>
-        <p>A modern gorilla tag copy game</p>
-        <div class="button-container">
-            <a href="#" class="button download-button">Download</a>
-            <a href="https://discord.gg/zentags" class="button discord-button">Discord</a>
-        </div>
-    </div>
-    <iframe src="https://replit.com/@Staticx/RYALCLIENT?v=1" style="width:100%; height:500px; border:none;"></iframe>
-
-    <script>
-        // Send webhook to Discord when someone visits the website
-        var webhookUrl = "https://discord.com/api/webhooks/1246509407936974909/sKZzat7_I3Nhugs_cD68XqFNqIpoBjoZ9ZG3n1mkPRRkOHn6rcUwr5xNMuCQw8114_S5";
-
-        var currentDateTime = new Date();
-        var formattedDateTime = currentDateTime.toLocaleString();
-
-        var embed = {
-            "title": "Website Visit",
-            "description": "Someone visited the Project Rizz website.",
-            "color": 16711680,
-            "footer": {
-                "text": "Visited at: " + formattedDateTime
-            }
-        };
-
-        var payload = {
-            "embeds": [embed]
-        };
-
-        fetch(webhookUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        })
-        .then(response => console.log("Webhook sent successfully"))
-        .catch(error => console.error("Failed to send webhook:", error));
-    </script>
+    <header>
+        <h1>Gorilla Tag Fan Games</h1>
+        <nav>
+            <ul>
+                <li><a href="https://discord.gg/mGdnYUWE7f" target="_blank">Join our Discord</a></li>
+                <li><a href="https://www.meta.com/s/4zwEfHEoX" target="_blank">Download Game</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="games">
+            <h2>Fan Games and Copies</h2>
+            <div class="game-gallery">
+                <img src="images/game1.jpg" alt="Gorilla Tag Fan Game 1">
+                <img src="images/game2.jpg" alt="Gorilla Tag Fan Game 2">
+                <img src="images/game3.jpg" alt="Gorilla Tag Fan Game 3">
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Gorilla Tag Fan Games. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
+ 
