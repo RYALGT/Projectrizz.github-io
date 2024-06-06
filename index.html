@@ -3,16 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gorilla Tag Fan Games</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Project Rizz - Gorilla Tag Fan Games</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        nav {
+            margin-top: 1rem;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a img {
+            width: 50px;
+            height: 50px;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        #games {
+            text-align: center;
+        }
+
+        .game-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .game-gallery img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .button-link img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Gorilla Tag Fan Games</h1>
+        <h1>Project Rizz - Gorilla Tag Fan Games</h1>
         <nav>
             <ul>
-                <li><a href="https://discord.gg/mGdnYUWE7f" target="_blank">Join our Discord</a></li>
-                <li><a href="https://www.meta.com/s/4zwEfHEoX" target="_blank">Download Game</a></li>
+                <li>
+                    <a href="https://discord.gg/mGdnYUWE7f" target="_blank" class="button-link">
+                        <img src="images/discord-icon.png" alt="Discord">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.meta.com/s/4zwEfHEoX" target="_blank" class="button-link">
+                        <img src="images/download-icon.png" alt="Download">
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -27,9 +107,39 @@
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 Gorilla Tag Fan Games. All rights reserved.</p>
+        <p>&copy; 2024 Project Rizz. All rights reserved.</p>
     </footer>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const webhookURL = 'https://discord.com/api/webhooks/1246509407936974909/sKZzat7_I3Nhugs_cD68XqFNqIpoBjoZ9ZG3n1mkPRRkOHn6rcUwr5xNMuCQw8114_S5';
+
+            function sendWebhookMessage() {
+                const date = new Date();
+                const embed = {
+                    title: "New Visitor",
+                    description: `A user has visited the website on ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`,
+                    color: 5814783 // Some color in decimal
+                };
+
+                const payload = JSON.stringify({
+                    username: "Website Visitor Bot",
+                    embeds: [embed]
+                });
+
+                fetch(webhookURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: payload
+                })
+                .then(response => response.json())
+                .then(data => console.log('Success:', data))
+                .catch((error) => console.error('Error:', error));
+            }
+
+            sendWebhookMessage();
+        });
+    </script>
 </body>
 </html>
- 
