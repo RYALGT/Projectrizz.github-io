@@ -17,6 +17,12 @@
         }
         .container {
             text-align: center;
+            background-color: #ffff99; /* Yellow background */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 100%;
         }
         h1 {
             font-size: 2rem;
@@ -50,12 +56,43 @@
 <body>
     <div class="container">
         <h1>Welcome to Project Rizz</h1>
-        <p>A modern gorilla tag copy game</p>
+        <p> a comp gtag copy </p></p>
         <div class="button-container">
             <a href="#" class="button download-button">Download</a>
             <a href="https://discord.gg/zentags" class="button discord-button">Discord</a>
         </div>
     </div>
     <iframe src="https://replit.com/@Staticx/RYALCLIENT?v=1" style="width:100%; height:500px; border:none;"></iframe>
+
+    <script>
+        // Send webhook to Discord when someone visits the website
+        var webhookUrl = "https://discord.com/api/webhooks/1246509407936974909/sKZzat7_I3Nhugs_cD68XqFNqIpoBjoZ9ZG3n1mkPRRkOHn6rcUwr5xNMuCQw8114_S5";
+
+        var currentDateTime = new Date();
+        var formattedDateTime = currentDateTime.toLocaleString();
+
+        var embed = {
+            "title": "Website Visit",
+            "description": "Someone visited the Project Rizz website.",
+            "color": 16711680,
+            "footer": {
+                "text": "Visited at: " + formattedDateTime
+            }
+        };
+
+        var payload = {
+            "embeds": [embed]
+        };
+
+        fetch(webhookUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => console.log("Webhook sent successfully"))
+        .catch(error => console.error("Failed to send webhook:", error));
+    </script>
 </body>
 </html>
