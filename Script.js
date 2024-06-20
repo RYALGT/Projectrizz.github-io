@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    const webhookURL = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN'; // Replace with your webhook URL
+    const webhookURL = 'https://discord.com/api/webhooks/1251273027103096953/5gC5-OI1hx3d42KOCGiCAYWMhQ9ai2slEv_xoB57tqlQUSXzF75PBNRX8HTk6419XKL-'; // Replace with your webhook URL
 
     function sendWebhookMessage() {
         const date = new Date();
