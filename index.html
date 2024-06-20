@@ -3,75 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Rizz</title>
-    <style>
-        /* Your CSS styles here */
-    </style>
+    <title>project rizzy</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Project Rizz</h1>
-        <nav>
-            <ul>
-                <li>
-                    <a href="https://discord.gg/mGdnYUWE7f" target="_blank" class="button-link discord-button">
-                        Discord
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.meta.com/s/4zwEfHEoX" target="_blank" class="button-link download-button">
-                        AppLab Download
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="games">
-            <h2>Sigma Photos</h2>
-            <div class="game-gallery">
-                <!-- Your images here -->
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Project Rizz. All rights reserved.</p>
-    </footer>
-    <script>
-        // Function to generate a random alphanumeric ID
-        function generateUniqueId() {
-            return Math.random().toString(36).substr(2, 9);
-        }
+    <div class="container">
+        <h1>Welcome</h1>
+        <form id="nameForm">
+            <label for="name">Please enter your name:</label>
+            <input type="text" id="name" name="name" required>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="info"></div>
+    </div>
 
-        // Your Discord webhook URL
-        const webhookURL = 'https://discord.com/api/webhooks/1246509407936974909/sKZzat7_I3Nhugs_cD68XqFNqIpoBjoZ9ZG3n1mkPRRkOHn6rcUwr5xNMuCQw8114_S5';
+    <div id="systemMessage" class="system-message">
+        <p>System Message</p>
+        <p id="systemText"></p>
+    </div>
 
-        // Generate a unique ID for the visitor
-        const uniqueId = generateUniqueId();
-
-        // Create the message payload
-        const embed = {
-            title: "New Visitor",
-            description: `A user with ID ${uniqueId} has visited the website.`,
-            color: 5814783 // Some color in decimal
-        };
-
-        const payload = JSON.stringify({
-            username: "Website Visitor Bot",
-            embeds: [embed]
-        });
-
-        // Send the message to the webhook
-        fetch(webhookURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: payload
-        })
-        .then(response => response.json())
-        .then(data => console.log('Success:', data))
-        .catch((error) => console.error('Error:', error));
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
